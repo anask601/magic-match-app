@@ -1,9 +1,11 @@
 import React from "react";
 import "./singleCard.css";
 
-const singleCard = ({ card, onAddChoice, flipped }) => {
+const singleCard = ({ card, onAddChoice, flipped, disabled }) => {
   const handleCard = () => {
-    onAddChoice(card);
+    if (!disabled) {
+      onAddChoice(card);
+    }
   };
 
   const { id, src, hasMatched } = card;

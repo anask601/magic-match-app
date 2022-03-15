@@ -18,6 +18,7 @@ function App() {
   const [turn, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [isDisable, setDisable] = useState(false);
 
   const shuffleCardsHandler = () => {
     const shuffleCards = [...DUMMY_CARDS, ...DUMMY_CARDS]
@@ -33,6 +34,7 @@ function App() {
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisable(true);
       if (choiceOne.src === choiceTwo.src) {
         console.log("match found");
         setCard((preVal) =>
@@ -44,13 +46,19 @@ function App() {
             }
           })
         );
-        setTimeout(() => resetVal());
+        setTimeout(() => resetVal(), 1000);
+        setDisable(false);
       } else {
         console.log("no match found");
-        setTimeout(() => resetVal());
+        setTimeout(() => resetVal(), 1000);
+        setDisable(false);
       }
     }
   }, [choiceOne, choiceTwo]);
+
+  useEffect(() => {
+    shuffleCardsHandler();
+  }, []);
 
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
@@ -78,6 +86,7 @@ function App() {
             flipped={
               card === choiceOne || card === choiceTwo || card.hasMatched
             }
+            disabled={isDisable}
           />
         ))}
       </div>
