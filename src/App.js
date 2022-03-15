@@ -16,6 +16,9 @@ const DUMMY_CARDS = [
 function App() {
   const [card, setCard] = useState([]);
   const [turn, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
+
   const shuffleCardsHandler = () => {
     const shuffleCards = [...DUMMY_CARDS, ...DUMMY_CARDS]
       .map((card) => ({
@@ -28,6 +31,16 @@ function App() {
     setTurns(0);
   };
 
+  const handleChoice = (card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
+
+  const resetVal = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((preVal) => preVal + 1);
+  };
+
   return (
     <div className="App">
       <h1>Magic Match</h1>
@@ -36,9 +49,10 @@ function App() {
       </button>
       <div className="card-grid">
         {card.map((card) => (
-          <SingleCard card={card} key={card.id} />
+          <SingleCard card={card} key={card.id} onAddChoice={handleChoice} />
         ))}
       </div>
+      <p>{turn} </p>
     </div>
   );
 }
