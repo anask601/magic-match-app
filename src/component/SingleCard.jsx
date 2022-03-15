@@ -8,8 +8,6 @@ const singleCard = ({ card, onAddChoice, flipped, disabled }) => {
     }
   };
 
-  const { id, src, hasMatched } = card;
-
   return (
     <>
       <div className="card">
