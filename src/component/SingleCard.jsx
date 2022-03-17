@@ -11,7 +11,6 @@ const singleCard = ({ card, onAddChoice, flipped, disabled }) => {
   return (
     <>
       <div className="card">
-        <p>{card.src}</p>
         {flipped ? (
           <img className="" src={card.src} alt="card front" />
         ) : (
